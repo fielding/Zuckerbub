@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { AppLoading, Asset, Font } from 'expo';
+import { AppLoading } from 'expo';
 
-import Assets from './assets/'
+import Assets from './assets/';
 import cacheAssetsAsync from './lib/assetCache';
 import Game from './src/Game';
 
@@ -11,30 +10,33 @@ export default class App extends React.Component {
     isReady: false,
   };
 
+  loadAssetsAsync = async () => {
+    await cacheAssetsAsync({
+      audio: Assets.audio,
+      fonts: Assets.fonts,
+      images: Assets.images,
+    });
+  };
+
+  handleLoadingError = error => {
+    console.warn(error);
+  };
+
+  handleFinishLoading = () => {
+    this.setState({ isReady: true });
+  };
+
   render() {
     if (!this.state.isReady) {
       return (
         <AppLoading
-          startAsync={this._loadAssetsAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
+          startAsync={this.loadAssetsAsync}
+          onError={this.handleLoadingError}
+          onFinish={this.handleFinishLoading}
         />
       );
     }
 
-    return (
-      <Game />
-    )
+    return <Game />;
   }
-  _loadAssetsAsync = async () => {
-      await cacheAssetsAsync({ audio: Assets.audio, fonts: Assets.fonts, images:
-      Assets.images });
-  };
-
-  _handleLoadingError = error => {
-    console.warn(error);
-  };
-  _handleFinishLoading = () => {
-    this.setState({ isReady: true });
-  };
 }
