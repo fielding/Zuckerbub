@@ -5,6 +5,7 @@ import Assets from '../assets';
 
 export default class Game extends React.Component {
   state = { bubblePopped: false };
+
   popBubble = async () => {
     this.setState({ bubblePopped: !this.state.bubblePopped });
     if (!this.popSound) {
@@ -13,22 +14,26 @@ export default class Game extends React.Component {
     try {
       await this.popSound.setPositionAsync(0);
       await this.popSound.playAsync();
-    } catch(error) {
-      console.warn("sound error", error);
+    } catch (error) {
+      console.warn('sound error', error);
     }
-  }
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>ZuckerBub</Text>
         <TouchableOpacity onPress={this.popBubble}>
           <View style={styles.bubbleWrap}>
-            <Image style={[styles.bubble, this.state.bubblePopped && styles.hidden]} source={Assets.images.bubble} />
-              <Image style={styles.zuckhead} source={Assets.images.zuckhead} />
+            <Image
+              style={[styles.bubble, this.state.bubblePopped && styles.hidden]}
+              source={Assets.images.bubble}
+            />
+            <Image style={styles.zuckhead} source={Assets.images.zuckhead} />
           </View>
         </TouchableOpacity>
-        <Text style={styles.subtitle}>Your touch decides Zuck's fate!</Text>
-        <Text style={{color: '#fff'}}>Tap to toggle bubble</Text>
+        <Text style={styles.subtitle}>Your touch decides Zuck&apos;s fate!</Text>
+        <Text style={{ color: '#fff' }}>Tap to toggle bubble</Text>
       </View>
     );
   }
