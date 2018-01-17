@@ -4,7 +4,9 @@ export default {
     zuckhead: require('../assets/images/zuckhead.png'),
   },
   fonts: [
-    { zuckleberry: require('../assets/fonts/zuckleberry.ttf')},
-    { 'montserrat-black': require('../assets/fonts/Montserrat-Black.ttf')}
+    {
+      zuckleberry: require('../assets/fonts/zuckleberry.ttf'),
+      'montserrat-black': require('../assets/fonts/Montserrat-Black.ttf'),
+    },
   ],
 };

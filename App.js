@@ -27,7 +27,8 @@ export default class App extends React.Component {
     )
   }
   _loadAssetsAsync = async () => {
-      await cacheAssetsAsync(Assets.images, Assets.fonts);
+      await cacheAssetsAsync({ audio: Assets.audio, fonts: Assets.fonts, images:
+      Assets.images });
   };
 
   _handleLoadingError = error => {
