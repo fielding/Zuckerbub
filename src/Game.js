@@ -1,14 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-
+import { Audio } from 'expo';
 import Assets from '../assets';
 
 export default class Game extends React.Component {
-  state = {
-    bubblePopped: false,
-  };
-  popBubble = () => {
+  state = { bubblePopped: false };
+  popBubble = async () => {
     this.setState({ bubblePopped: !this.state.bubblePopped });
+    if (!this.popSound) {
+      this.popSound = (await Audio.Sound.create(Assets.audio.pop)).sound;
+    }
+    try {
+      await this.popSound.setPositionAsync(0);
+      await this.popSound.playAsync();
+    } catch(error) {
+      console.warn("sound error", error);
+    }
   }
   render() {
     return (
